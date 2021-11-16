@@ -8,10 +8,9 @@ import crawler from 'puppeteer'
 
     await page.goto(url)
 
-    const data = await page.evaluate(() => {
-      const tds = Array.from(document.querySelectorAll('table > tbody > tr td'))
-      return tds.map(td => td.innerText)
-    })
+    const data = await page.$$eval('table > tbody > tr td',  
+      tds => tds.map(td => td.innerText)
+    )
 
     console.info(data)
 
